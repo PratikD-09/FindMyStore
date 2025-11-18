@@ -31,7 +31,7 @@ const Login = () => {
       navigate("/owner/dashboard");
     } 
     else {
-      navigate("/user/stores");
+      navigate("/");
     }
 
   } catch (error) {

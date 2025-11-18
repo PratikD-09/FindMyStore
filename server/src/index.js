@@ -3,9 +3,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import pool from './config/db.js';
 import userRouter from './routes/userRoutse.js';
+import storeRouter from './routes/storeRouts.js';
 import errorHandler from './middlewares/errorHandler.js';
 import { createUser } from './controllers/userController.js';
 import createUserTable from './data/createUserTable.js';
+import createRatingsTable from './data/createRatingsTable.js';
+import createStoreTable from './data/createStoreTable.js';
 
 
 
@@ -34,6 +37,7 @@ app.get('/test-db', async (req, res) => {
 
 
 app.use('/api', userRouter); // Assuming userRouter is imported from userRoutse.js
+app.use('/api', storeRouter); // Assuming userRouter is imported from userRoutse.js
 
 
 
@@ -44,6 +48,8 @@ app.use(errorHandler);
 
 //create user table on server start
 createUserTable();
+createRatingsTable();
+createStoreTable()
 
 
 

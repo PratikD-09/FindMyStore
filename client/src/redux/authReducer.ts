@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface User {
+    id:number,
     username: string;
     email: string;
     role: string;
