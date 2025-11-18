@@ -62,7 +62,7 @@ export default function App() {
        <Route
         path="/user/profile" 
         element={
-          <ProtectedRoute allowedRoles={["user"]}>
+          <ProtectedRoute allowedRoles={["user","admin","store"]}>
             <UserProfile />
           </ProtectedRoute>
         }

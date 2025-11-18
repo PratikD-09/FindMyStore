@@ -1,8 +1,14 @@
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import UserStoreList from "./user/UserStoreList";
+import axios from "axios";
+
+
+
 
 
 export default function Home() {
+
 
   return (
     <div className="min-h-screen bg-gray-50">

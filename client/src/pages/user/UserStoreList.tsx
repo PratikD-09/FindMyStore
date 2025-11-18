@@ -1,5 +1,16 @@
+import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import StoreCard from "../../components/StoreCard";
+import axios from "axios";
+
+interface StoreType {
+  id: number;
+  category:string,
+  name: string;
+  email: string;
+  address: string;
+}
+
 
 
 export interface Store {
@@ -42,6 +53,32 @@ const stores = [
 ];
 
 
+
+   const [storeList, setStoreList] = useState<StoreType[]>([
+      
+    ]);
+
+
+  const getAllStores = async()=>{
+    try {
+      const res = await axios.get("/api/stores");
+      console.log(res.data.data)
+      setStoreList(res.data.data)
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+
+  useEffect(() => {
+      getAllStores();
+     
+    }, [])
+
+    console.log(storeList);
+
+
   return (
     <>
     <Navbar />
@@ -56,7 +93,7 @@ const stores = [
 
         {/* Card Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {stores.map((store) => (
+          {storeList.map((store) => (
             <StoreCard key={store.id} />
           ))}
         </div>
