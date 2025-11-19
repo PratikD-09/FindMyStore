@@ -9,7 +9,8 @@ interface User {
   id: number, 
   email:string,
   username:string,
-  address:string
+  address:string,
+  role:string
 }
 
 
@@ -43,7 +44,7 @@ console.log(userOfId);
         <div className="flex flex-col items-center">
           <FaUserCircle className="text-gray-400" size={100} />
           <h2 className="text-2xl font-bold mt-3">{userOfId?.username}</h2>
-          <p className="text-gray-600">Regular User</p>
+          <p className="text-gray-600">{`User Type : ${userOfId?.role}`}</p>
 
           <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg flex items-center gap-2 hover:bg-blue-700 transition">
             <FaEdit /> Edit Profile

@@ -1,36 +1,39 @@
 import { Star, MapPin } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
-export default function StoreCard() {
-  const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate("/stores/1"); // 👉 static store id for now
-  };
+type StoreType = {
+  id: number;
+  category:string,
+  name: string;
+  email: string;
+  address: string;
+}
+type StoreCardProps = {
+  store: StoreType;
+};
+
+export default function StoreCard({store} : StoreCardProps) {
+     
+ 
 
   return (
     <div
-      onClick={handleClick}
       className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 cursor-pointer"
     >
       {/* Store Image */}
-      <img
-        src="https://images.unsplash.com/photo-1506619216599-9d16d0903dfd?q=80&w=1200"
-        alt="Store"
-        className="w-full h-48 object-cover"
-      />
+     
 
       <div className="p-5">
 
         {/* Store Name */}
         <h3 className="text-xl font-semibold text-indigo-700 truncate">
-          Sunrise Supermarket
+          {store.name}
         </h3>
 
         {/* Address */}
         <div className="flex items-center text-gray-600 mt-2">
           <MapPin className="h-4 w-4 mr-1" />
-          <span className="truncate">MG Road, Pune</span>
+          <span className="truncate">{store.address}</span>
         </div>
 
         {/* Ratings */}

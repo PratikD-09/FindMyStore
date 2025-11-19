@@ -3,10 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/authReducer";
 import { LogOut, User } from "lucide-react";
 import type { RootState } from "../redux/store";
+import { RiDashboardHorizontalFill } from "react-icons/ri";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
+  // console.log(user);
 
   const navigate = useNavigate();
 
@@ -30,6 +32,14 @@ const Navbar = () => {
 
         {/* RIGHT SECTION */}
         <div className="space-x-4 flex items-center">
+           <div>
+
+          { user?.role == "admin" &&
+              <Link to="/admin/dashboard">
+                <RiDashboardHorizontalFill className="w-6 h-6 text-blue-600 hover:text-blue-800 cursor-pointer" />
+              </Link>
+          }
+          </div>
 
           {!user ? (
             <>
@@ -63,6 +73,8 @@ const Navbar = () => {
               </button>
             </>
           )}
+
+         
 
         </div>
       </div>

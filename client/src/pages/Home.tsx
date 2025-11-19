@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import UserStoreList from "./user/UserStoreList";
-import axios from "axios";
 
 
 
