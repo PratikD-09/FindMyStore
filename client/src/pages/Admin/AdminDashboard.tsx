@@ -6,7 +6,7 @@ import AddStoreForm from "./AddStoreForm";
 import UserDetails from "./UserDetails";
 import Navbar from "../../components/Navbar";
 import axios from "axios";
-
+import { RiDeleteBin2Fill, RiDeleteBin7Fill } from "react-icons/ri";
 // --------------------
 // TypeScript Interfaces
 // --------------------
@@ -23,10 +23,11 @@ interface UserType {
 
 interface StoreType {
   id: number;
-  category:string,
+  category: string,
   name: string;
   email: string;
   address: string;
+  rating?: number;
 }
 
 export default function Dashboard() {
@@ -40,15 +41,15 @@ export default function Dashboard() {
   // Use States for User & Store List
   // --------------------------
   const [userList, setUserList] = useState<UserType[]>([
-   
+
   ]);
 
   const [storeList, setStoreList] = useState<StoreType[]>([
-    
+
   ]);
 
 
-  const getAllUsers = async()=>{
+  const getAllUsers = async () => {
     try {
       const res = await axios.get("/api/users");
       // console.log(res.data.obj)
@@ -59,7 +60,7 @@ export default function Dashboard() {
 
   }
 
-    const getAllStores = async()=>{
+  const getAllStores = async () => {
     try {
       const res = await axios.get("/api/stores");
       console.log(res.data.data)
@@ -70,13 +71,51 @@ export default function Dashboard() {
 
   }
 
+  console.log(storeList);
+
+
+
 
   useEffect(() => {
     getAllUsers();
     getAllStores();
-   
-  }, [])
-  
+
+  }, [showStorePopup, showUserPopup, activeTab])
+
+
+  const handleDeleteStore = async(id: number) => {
+  // DELETE API call here
+  console.log("Deleting store with ID:", id);
+
+  await axios.delete(`/api/stores/${id}`)
+    .then(res => {
+      console.log("Deleted!");
+      // refresh page OR remove from UI
+      setStoreList(storeList.filter(store => store.id !== id));
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+
+ const handleDeleteUser = async (id: number) => {
+  // DELETE API call here
+  console.log("Deleting store with ID:", id);
+
+  await axios.delete(`/api/users/${id}`)
+    .then(res => {
+      console.log("Deleted!");
+      // refresh page OR remove from UI
+      alert(`User of id:${id} is deleted !!`)
+      setUserList(userList.filter(user => user.id !== id));
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+
 
   // --------------------------
   // Search Filters
@@ -140,18 +179,16 @@ export default function Dashboard() {
         <div className="flex gap-4 mb-4">
           <button
             onClick={() => setActiveTab("users")}
-            className={`px-4 py-2 rounded-lg font-semibold ${
-              activeTab === "users" ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-700"
-            }`}
+            className={`px-4 py-2 rounded-lg font-semibold ${activeTab === "users" ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-700"
+              }`}
           >
             User List
           </button>
 
           <button
             onClick={() => setActiveTab("stores")}
-            className={`px-4 py-2 rounded-lg font-semibold ${
-              activeTab === "stores" ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-700"
-            }`}
+            className={`px-4 py-2 rounded-lg font-semibold ${activeTab === "stores" ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-700"
+              }`}
           >
             Store List
           </button>
@@ -177,10 +214,12 @@ export default function Dashboard() {
               <table className="w-full border-collapse table-fixed">
                 <thead>
                   <tr className="bg-gray-100 text-left">
+                    <th className="p-3">Id</th>
                     <th className="p-3">Name</th>
                     <th className="p-3">Email</th>
                     <th className="p-3">Address</th>
                     <th className="p-3">Role</th>
+                    <th className="p-3">Option</th>
                   </tr>
                 </thead>
 
@@ -189,12 +228,19 @@ export default function Dashboard() {
                     <tr
                       key={user.id}
                       className="hover:bg-gray-50 cursor-pointer border-b"
-                      onClick={() => setSelectedUser(user)}
+                      
                     >
-                      <td className="p-3">{user.username}</td>
-                      <td className="p-3">{user.email}</td>
-                      <td className="p-3">{user.address}</td>
-                      <td className="p-3">{user.role}</td>
+                      <td onClick={() => setSelectedUser(user)} className="p-3">{user.id}</td>
+                      <td onClick={() => setSelectedUser(user)} className="p-3">{user.username}</td>
+                      <td onClick={() => setSelectedUser(user)} className="p-3">{user.email}</td>
+                      <td onClick={() => setSelectedUser(user)} className="p-3">{user.address}</td>
+                      <td onClick={() => setSelectedUser(user)} className="p-3">{user.role}</td>
+                      <td className="p-3">
+                        <RiDeleteBin2Fill
+                          onClick={() => handleDeleteUser(user.id)}
+                          className="fill-red-500 h-[25px] w-[25px] cursor-pointer"
+                        />
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -209,20 +255,29 @@ export default function Dashboard() {
               <table className="w-full border-collapse table-fixed">
                 <thead>
                   <tr className="bg-gray-100 text-left">
+                    <th className="p-3">Id</th>
                     <th className="p-3">Name</th>
-                    <th className="p-3">Email</th>
+                    <th className="p-3">Catagory</th>
                     <th className="p-3">Address</th>
                     <th className="p-3">Rating</th>
+                    <th className="p-3">Options</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   {filteredStores.map((store) => (
                     <tr key={store.id} className="hover:bg-gray-50 border-b">
+                      <td className="p-3">{store.id}</td>
                       <td className="p-3">{store.name}</td>
-                      <td className="p-3">{store.email}</td>
+                      <td className="p-3">{store.category}</td>
                       <td className="p-3">{store.address}</td>
-                      <td className="p-3">{store.rating}</td>
+                      <td className="p-3">{Math.floor(store.rating ?? 0)}</td>
+                      <td className="p-3">
+                        <RiDeleteBin2Fill
+                          onClick={() => handleDeleteStore(store.id)}
+                          className="fill-red-500 h-[25px] w-[25px] cursor-pointer"
+                        />
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -234,13 +289,13 @@ export default function Dashboard() {
         {/* POPUPS */}
         {showUserPopup && (
           <PopupWrapper onClose={() => setShowUserPopup(false)}>
-            <AddUserForm setUserList={setUserList} />
+            <AddUserForm setpopup={setShowUserPopup} />
           </PopupWrapper>
         )}
 
         {showStorePopup && (
           <PopupWrapper onClose={() => setShowStorePopup(false)}>
-            <AddStoreForm setStoreList={setStoreList} />
+            <AddStoreForm setpopup={setShowStorePopup} />
           </PopupWrapper>
         )}
 

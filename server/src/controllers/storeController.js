@@ -4,7 +4,8 @@ import {
   getStoreByIdService,
   updateStoreByIdService,
   deleteStoreByIdService,
-  findStoreByOwner
+  findStoreByOwner,
+  findUserById
 } from "../models/storeModel.js";
 
 
@@ -21,7 +22,25 @@ export const createStore = async (req, res, next) => {
   }
 
   try {
-    // ⭐ STEP 1: Check if owner already has a store
+    // ⭐ STEP 1: Check if user exists
+    const user = await findUserById(owner_id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // ⭐ STEP 2: Check if user has role = 'store'
+    if (user.role !== 'store') {
+      return res.status(403).json({
+        success: false,
+        message: "Only users with role 'store' can create a store",
+      });
+    }
+
+    // ⭐ STEP 3: Check if owner already has a store
     const existingStore = await findStoreByOwner(owner_id);
 
     if (existingStore) {
@@ -31,7 +50,7 @@ export const createStore = async (req, res, next) => {
       });
     }
 
-    // ⭐ STEP 2: Create store
+    // ⭐ STEP 4: Create store
     const newStore = await createStoreService(
       owner_id,
       name,
@@ -52,6 +71,41 @@ export const createStore = async (req, res, next) => {
   }
 };
 
+export const getStoreByOwnerId = async (req, res, next) => {
+  const { owner_id } = req.params; // assuming route uses /store/owner/:owner_id
+
+  if (!owner_id) {
+    return res.status(400).json({
+      success: false,
+      message: "Owner ID is required",
+    });
+  }
+
+  try {
+    // Service call
+    const store = await findStoreByOwner(owner_id);
+
+    if (!store) {
+      return res.status(404).json({
+        success: false,
+        message: "No store found for this owner",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Store fetched successfully",
+      data: store,
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
+
 
 // GET ALL STORES
 export const getAllStores = async (req, res, next) => {
@@ -67,6 +121,9 @@ export const getAllStores = async (req, res, next) => {
     next(error);
   }
 };
+
+// SERVICE: Fetch store by owner_id
+
 
 
 // GET STORE BY ID

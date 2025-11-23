@@ -17,9 +17,6 @@ interface StoreType {
 
 export default function UserStoreList() {
 
-
-
-
   const [storeList, setStoreList] = useState<StoreType[]>([]);
 
 

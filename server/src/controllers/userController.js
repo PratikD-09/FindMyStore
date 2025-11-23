@@ -17,14 +17,14 @@ const handleResponse = (res, status, success, message, obj = null) => {
 
 
 export const createUser = async (req, res, next) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, address , role} = req.body;
 
     if (!username || !email || !password) {
         return next({ status: 400, message: "All fields are required" });
     }
 
     try {
-        const newUser = await createUserService(username, email, password);
+        const newUser = await createUserService(username, email, password , address , role);
         handleResponse(res, 201, true, 'User created successfully', newUser);
     } catch (error) {
         next(error);
@@ -64,19 +64,32 @@ export const getUserById = async (req , res , next) => {
     }   
 };
 
-export const updateUserById = async (req , res , next) => {
-    const { id } = req.params;
-    const { username, email } = req.body;
-    try {
-        const updatedUser = await updateUserByIdService(id, username, email);
-        if (!updatedUser) {
-            return handleResponse(res, 404, false, 'User not found');
-        }   
-        handleResponse(res, 200, true, 'User updated successfully', updatedUser);
-    } catch (error) {
-        next(error);
+import bcrypt from "bcrypt";
+
+export const updateUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = { ...req.body };
+
+    // If password is present and not empty, hash it
+    if (data.password && data.password.trim() !== "") {
+      data.password = await bcrypt.hash(data.password, 10);
+    } else {
+      delete data.password; // prevent overwriting old password with empty value
     }
+
+    const updatedUser = await updateUserByIdService(id, data);
+
+    res.json({
+      success: true,
+      user: updatedUser,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
+
+
 
 export const deleteUserById = async (req , res , next) => {
     const { id } = req.params;

@@ -1,11 +1,9 @@
+import type { Dispatch } from "react";
 import axios from "axios";
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent, type SetStateAction } from "react";
 
 
 
-type AddUserFormProps = {
-  setUserList: React.Dispatch<React.SetStateAction<UserType[]>>;
-};
 
 
 interface UserType {
@@ -18,15 +16,20 @@ interface UserType {
 }
 
 
-export default function AddUserForm({ setUserList }: AddUserFormProps) {
+interface AddUserFormProps {
+  setpopup: Dispatch<SetStateAction<boolean>>; // React state setter
+}
+
+
+
+export default function AddUserForm({ setpopup  }: AddUserFormProps) {
   const [form, setForm] = useState({
     username: "",
     email: "",
     password: "",
     address: "",
-    role: "User",
+    role: "user",
   });
-
   // Handles input + select safely
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -61,12 +64,14 @@ export default function AddUserForm({ setUserList }: AddUserFormProps) {
       address: form.address,
       role: form.role, // IMPORTANT ✔
     };
+    console.log(requestData);
 
     try {
       const response = await axios.post("/api/signup", requestData);
 
       alert("User Created Successfully!");
       console.log("User Created:", response.data);
+      setpopup(false);
 
       // Reset form after successful creation
       setForm({
@@ -127,8 +132,9 @@ export default function AddUserForm({ setUserList }: AddUserFormProps) {
         value={form.role}
         onChange={handleChange}
       >
-        <option value="User">User</option>
-        <option value="Admin">Admin</option>
+        <option value="user">user</option>
+        <option value="admin">admin</option>
+        <option value="store">store</option>
       </select>
 
       <button className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700">

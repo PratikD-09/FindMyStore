@@ -29,6 +29,7 @@ export const loginUser = createAsyncThunk(
     async (formData: any, thunkAPI) => {
         try {
             const res = await axios.post("/api/login", formData);
+            console.log(res.data.obj.user);
             return res.data.obj.user;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data.message);

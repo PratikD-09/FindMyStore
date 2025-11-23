@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useState, type ChangeEvent, type Dispatch, type FormEvent, type SetStateAction } from "react";
 
 
 
 interface AddStoreFormProps {
-  setStoreList: React.Dispatch<React.SetStateAction<StoreType[]>>;
+  setpopup: Dispatch<SetStateAction<boolean>>; // React state setter
 }
 interface StoreType {
   id: number;
@@ -23,7 +23,7 @@ interface StoreFormData {
   phone: string;
 }
 
-export default function AddStoreForm({ setStoreList }: AddStoreFormProps) {
+export default function AddStoreForm({ setpopup }: AddStoreFormProps) {
 
   const [store, setStore] = useState<StoreFormData>({
     owner_id: null,
@@ -53,6 +53,8 @@ export default function AddStoreForm({ setStoreList }: AddStoreFormProps) {
     e.preventDefault();
     try {
       const res = await axios.post("/api/stores", store);
+      alert("Store is created!!");
+      setpopup(false);
     } catch (error : any) {
       console.log(error);
       alert(error.response.data.message)

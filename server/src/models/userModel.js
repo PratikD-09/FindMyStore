@@ -3,7 +3,7 @@ import bcrypt from "bcrypt"
 
 
 
-export const createUserService = async (username, email, password) => {
+export const createUserService = async (username, email, password , address , role ) => {
 
     // check if email already exists
     const findUser = await pool.query(
@@ -20,8 +20,8 @@ export const createUserService = async (username, email, password) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const result = await pool.query(
-        'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *',
-        [username, email, hashedPassword]
+        'INSERT INTO users (username, email, password , address , role) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        [username, email, hashedPassword, address , role]
     );
 
     return result.rows[0];
@@ -47,7 +47,7 @@ export const loginService = async (email, password) => {
   return {
     user: {
       id: user.id,
-      name: user.name,
+      username: user.username,
       email: user.email,
       role: user.role
     }
@@ -63,13 +63,30 @@ export const getUserByIdService = async(id) => {
     const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
     return result.rows[0];
 };
-export const updateUserByIdService = async (id, username, email) => {
-    const result = await pool.query(
-        'UPDATE users SET username = $1, email = $2 WHERE id = $3 RETURNING *',
-        [username, email, id]
-    );
+export const updateUserByIdService = async (id, data) => {
+    const fields = [];
+    const values = [];
+    let index = 1;
+
+    for (const key in data) {
+        fields.push(`${key} = $${index}`);
+        values.push(data[key]);
+        index++;
+    }
+
+    values.push(id); // last index for WHERE id = $n
+
+    const query = `
+        UPDATE users 
+        SET ${fields.join(", ")} 
+        WHERE id = $${index}
+        RETURNING *
+    `;
+
+    const result = await pool.query(query, values);
     return result.rows[0];
 };
+
 
 export const deleteUserByIdService = async (id) => {
     const result = await pool.query('DELETE FROM users WHERE id = $1 RETURNING *', [id]);

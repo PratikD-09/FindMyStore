@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/authReducer";
-import { LogOut, User } from "lucide-react";
+import { LogOut, ShoppingBag, Store, User } from "lucide-react";
 import type { RootState } from "../redux/store";
 import { RiDashboardHorizontalFill } from "react-icons/ri";
 
@@ -25,20 +25,37 @@ const Navbar = () => {
         <Link
           to="/"
         >
-          <h1 className="text-2xl font-bold text-blue-600">StoreRating</h1>
+          <h1 className="flex text-2xl font-bold text-blue-600 hover:text-blue-400 hover:scale-105 transition-transform duration-300">
+            <p className="pr-5 pt-1"><Store/></p>
+            
+            <p>FindMyStore</p>
+          </h1>
+
+
+
+
+
         </Link>
 
-        
+
 
         {/* RIGHT SECTION */}
         <div className="space-x-4 flex items-center">
-           <div>
+          <div>
 
-          { user?.role == "admin" &&
+            {user?.role == "admin" &&
               <Link to="/admin/dashboard">
                 <RiDashboardHorizontalFill className="w-6 h-6 text-blue-600 hover:text-blue-800 cursor-pointer" />
               </Link>
-          }
+            }
+
+            {
+              user?.role == "store" &&
+              <Link to="/owner/dashboard">
+                <RiDashboardHorizontalFill className="w-6 h-6 text-blue-600 hover:text-blue-800 cursor-pointer" />
+              </Link>
+
+            }
           </div>
 
           {!user ? (
@@ -74,7 +91,7 @@ const Navbar = () => {
             </>
           )}
 
-         
+
 
         </div>
       </div>

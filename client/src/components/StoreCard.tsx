@@ -51,10 +51,7 @@ export default function StoreCard({store} : StoreCardProps) {
 
         {/* Button */}
         <button
-          onClick={(e) => {
-            e.stopPropagation(); // prevent card click navigation
-            alert("Rate clicked (static)");
-          }}
+         
           className="mt-4 w-full py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
         >
           Rate Store
