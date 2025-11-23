@@ -41,6 +41,12 @@ app.get('/test-db', async (req, res) => {
 app.use('/api', userRouter); // Assuming userRouter is imported from userRoutse.js
 app.use('/api', storeRouter); // Assuming userRouter is imported from userRoutse.js
 app.use('/api', ratingsRouter); // Assuming userRouter is imported from userRoutse.js
+app.get('/', (req, res) => {
+    res.json({ 
+        success: true,
+        message: "Store Rating Backend Working" 
+    });
+});
 
 
 
