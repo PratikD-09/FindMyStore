@@ -5,7 +5,7 @@ import AddUserForm from "./AddUserForm";
 import AddStoreForm from "./AddStoreForm";
 import UserDetails from "./UserDetails";
 import Navbar from "../../components/Navbar";
-import axios from "axios";
+import API from "../../API/axios.js";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 // --------------------
 // TypeScript Interfaces

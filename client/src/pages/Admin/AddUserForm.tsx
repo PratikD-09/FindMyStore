@@ -1,7 +1,6 @@
 import type { Dispatch } from "react";
-import axios from "axios";
 import { useState, type ChangeEvent, type FormEvent, type SetStateAction } from "react";
-
+import API from "../../API/axios.ts";
 
 interface AddUserFormProps {
   setpopup: Dispatch<SetStateAction<boolean>>; // React state setter

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import StoreCard from "../../components/StoreCard";
-import axios from "axios";
+import API from "../../API/axios.ts";
 import { Link } from "react-router-dom";
 
 interface StoreType {

@@ -1,6 +1,5 @@
-import axios from "axios";
 import { useState, type ChangeEvent, type Dispatch, type FormEvent, type SetStateAction } from "react";
-
+import API from "../../API/axios.ts"
 
 
 interface AddStoreFormProps {

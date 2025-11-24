@@ -1,6 +1,6 @@
 import { FaUserCircle, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../API/axios.ts";
 import Navbar from "../../components/Navbar";
 
 export interface RatingType {

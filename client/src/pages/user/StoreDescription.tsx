@@ -1,10 +1,10 @@
-import axios from "axios";
 import { Star, MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
+import API from "../../API/axios.ts";
 
 
 interface StoreType {

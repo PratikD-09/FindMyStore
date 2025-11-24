@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import API from "../API/axios"; // adjust the path depending on your file location
+import API from "../API/axios.ts"; // adjust the path depending on your file location
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -49,7 +49,7 @@ const Signup = () => {
       console.log(response);
       navigate("/login")
     } catch (err: any) {
-      if (API.isAxiosError(err)) {
+      if ((err)) {
         console.error("Error:", err.response?.data || err.message);
         alert(err.response?.data?.message || "Registration failed");
       } else {

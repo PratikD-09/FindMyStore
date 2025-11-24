@@ -1,7 +1,7 @@
 // src/redux/slices/storeSlice.ts
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import API from "../API/axios.ts";
 
 
 export type StoreType = {

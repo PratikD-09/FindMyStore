@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import RatingList from "./RatingList";
 import { Star } from "lucide-react";
-import axios from "axios";
-
+import API from "../../API/axios";
 export interface RatingType {
   id: number;
   user_id: string;
