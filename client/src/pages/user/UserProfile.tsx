@@ -44,7 +44,7 @@ const [password, setPassword] = useState("");
 
     const getUser = async () => {
       try {
-        const res = await axios.get(`/api/users/${user.id}`);
+        const res = await API.get(`/api/users/${user.id}`);
         setUserOFId(res.data.obj);
       } catch (error) {
         console.log(error);
@@ -74,7 +74,7 @@ const [password, setPassword] = useState("");
 
       const userId = userOfId.username;
 
-      const res = await axios.get(`/api/ratings/user/${userId}`);
+      const res = await API.get(`/api/ratings/user/${userId}`);
       setRatings(res.data.data);
     } catch (error) {
       console.log(error);
@@ -120,7 +120,7 @@ const [password, setPassword] = useState("");
     }
 
     // NO EMPTY FIELDS WILL BE SENT
-    await axios.put(`/api/users/${userOfId?.id}`, finalData);
+    await API.put(`/api/users/${userOfId?.id}`, finalData);
 
     alert("Profile updated successfully!");
 

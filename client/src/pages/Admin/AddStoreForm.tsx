@@ -46,7 +46,7 @@ export default function AddStoreForm({ setpopup }: AddStoreFormProps) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post("/api/stores", store);
+      await API.post("/api/stores", store);
       alert("Store is created!!");
       setpopup(false);
     } catch (error : any) {

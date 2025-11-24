@@ -45,7 +45,7 @@ export default function StoreDescription() {
 
   const getStoreInfo = async () => {
     try {
-      const res = await axios.get(`/api/stores/${id}`)
+      const res = await API.get(`/api/stores/${id}`)
       // console.log(res.data.data)
       setStore(res.data.data);
     } catch (error) {
@@ -57,7 +57,7 @@ export default function StoreDescription() {
 
   const getReviews = async () => {
     try {
-      const res = await axios.get(`/api/ratings/store/${id}`);
+      const res = await API.get(`/api/ratings/store/${id}`);
       setRatings(res.data.data);
     } catch (error) {
       console.log(error)
@@ -85,7 +85,7 @@ export default function StoreDescription() {
     }
 
     try {
-      axios.post("/api/ratings", ratingData);
+      API.post("/api/ratings", ratingData);
       setRating(0);
       setReviewText("")
       setFlag(!flag);

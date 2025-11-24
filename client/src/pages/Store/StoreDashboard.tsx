@@ -51,7 +51,7 @@ export default function StoreDashboard() {
       }
 
 
-      const res = await axios.get(`/api/owner/${owner_id}`)
+      const res = await API.get(`/api/owner/${owner_id}`)
       setStore(res.data.data);
     } catch (error) {
       console.log(error);
@@ -72,7 +72,7 @@ export default function StoreDashboard() {
     const storeid = store.id;
 
     try {
-      const res = await axios.get(`/api/ratings/store/${storeid}`);
+      const res = await API.get(`/api/ratings/store/${storeid}`);
       setRatings(res.data.data);
     } catch (error) {
       console.log(error)

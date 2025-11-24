@@ -35,7 +35,7 @@ const Login = () => {
     }
 
   } catch (error:any) {
-    alert("Server Not responding!!          "+ "Error Message :"+ error.message);
+    alert("Invalid Credentils         "+  "Error Message :"+ error.message);
   }
 };
 

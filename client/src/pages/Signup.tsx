@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import API from "../API/axios"; // adjust the path depending on your file location
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -19,7 +19,7 @@ const Signup = () => {
   //   e.preventDefault();
 
   //   try {
-  //     const res = await axios.post("/api/signup")
+  //     const res = await API.post("/api/signup")
   //   } catch (error) {
       
   //   }
@@ -45,11 +45,11 @@ const Signup = () => {
     };
 
     try {
-      const response = await axios.post("/api/signup", requestData);
+      const response = await API.post("/api/signup", requestData);
       console.log(response);
       navigate("/login")
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
+    } catch (err: any) {
+      if (API.isAxiosError(err)) {
         console.error("Error:", err.response?.data || err.message);
         alert(err.response?.data?.message || "Registration failed");
       } else {

@@ -51,7 +51,7 @@ export default function Dashboard() {
 
   const getAllUsers = async () => {
     try {
-      const res = await axios.get("/api/users");
+      const res = await API.get("/api/users");
       // console.log(res.data.obj)
       setUserList(res.data.obj)
     } catch (error) {
@@ -62,7 +62,7 @@ export default function Dashboard() {
 
   const getAllStores = async () => {
     try {
-      const res = await axios.get("/api/stores");
+      const res = await API.get("/api/stores");
       setStoreList(res.data.data)
     } catch (error) {
       console.log(error)
@@ -82,7 +82,7 @@ export default function Dashboard() {
 
   const handleDeleteStore = async(id: number) => {
   // DELETE API call here
-  await axios.delete(`/api/stores/${id}`)
+  await API.delete(`/api/stores/${id}`)
     .then(res => {
       console.log(res);
       // refresh page OR remove from UI
@@ -97,7 +97,7 @@ export default function Dashboard() {
  const handleDeleteUser = async (id: number) => {
   // DELETE API call here
 
-  await axios.delete(`/api/users/${id}`)
+  await API.delete(`/api/users/${id}`)
     .then(res => {
       console.log(res);
       // refresh page OR remove from UI

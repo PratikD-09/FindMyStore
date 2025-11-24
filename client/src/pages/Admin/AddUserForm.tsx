@@ -53,7 +53,7 @@ export default function AddUserForm({ setpopup  }: AddUserFormProps) {
     };
 
     try {
-      const response = await axios.post("/api/signup", requestData);
+      const response = await API.post("/api/signup", requestData);
 
       alert(`${response.data.message}`);
       setpopup(false);

@@ -29,7 +29,7 @@ const initialState: StoreState = {
 
 // API CALL
 export const fetchStores = createAsyncThunk("stores/fetchStores", async () => {
-  const res = await axios.get("http://localhost:5000/api/stores");
+  const res = await API.get("http://localhost:5000/api/stores");
   return res.data as StoreType[];
 });
 

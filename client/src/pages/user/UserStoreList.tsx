@@ -22,7 +22,7 @@ export default function UserStoreList() {
 
   const getAllStores = async () => {
     try {
-      const res = await axios.get("/api/stores");
+      const res = await API.get("/api/stores");
       // console.log(res.data.data)
       setStoreList(res.data.data)
     } catch (error) {
