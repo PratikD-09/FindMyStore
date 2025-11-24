@@ -20,6 +20,7 @@ import UserProfile from "./pages/user/UserProfile";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import StoreDashboard from "./pages/Store/StoreDashboard";
 import ProtectedRoute from "./ProtectedRoute";
+import NotFound from "./NotFound";
 // import AdminUsers from "./pages/admin/AdminUsers";
 // import AdminStores from "./pages/admin/AdminStores";
 // import AdminViewUser from "./pages/admin/AdminViewUser";
@@ -93,7 +94,7 @@ export default function App() {
         }
       />
      
-      {/* <Route path="*" element={<NotFound />} /> */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

@@ -3,19 +3,6 @@ import axios from "axios";
 import { useState, type ChangeEvent, type FormEvent, type SetStateAction } from "react";
 
 
-
-
-
-interface UserType {
-  id: number;
-  username: string;
-  email: string;
-  address: string;
-  role: string;
-  rating?: number;
-}
-
-
 interface AddUserFormProps {
   setpopup: Dispatch<SetStateAction<boolean>>; // React state setter
 }
@@ -64,13 +51,11 @@ export default function AddUserForm({ setpopup  }: AddUserFormProps) {
       address: form.address,
       role: form.role, // IMPORTANT ✔
     };
-    console.log(requestData);
 
     try {
       const response = await axios.post("/api/signup", requestData);
 
-      alert("User Created Successfully!");
-      console.log("User Created:", response.data);
+      alert(`${response.data.message}`);
       setpopup(false);
 
       // Reset form after successful creation

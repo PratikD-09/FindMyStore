@@ -34,9 +34,8 @@ const Login = () => {
       navigate("/");
     }
 
-  } catch (error) {
-    alert("Invalid User Or User not available");
-    console.log("Error:", error);
+  } catch (error:any) {
+    alert("Server Not responding!!          "+ "Error Message :"+ error.message);
   }
 };
 

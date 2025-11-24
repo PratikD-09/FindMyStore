@@ -6,7 +6,7 @@ import AddStoreForm from "./AddStoreForm";
 import UserDetails from "./UserDetails";
 import Navbar from "../../components/Navbar";
 import axios from "axios";
-import { RiDeleteBin2Fill, RiDeleteBin7Fill } from "react-icons/ri";
+import { RiDeleteBin2Fill } from "react-icons/ri";
 // --------------------
 // TypeScript Interfaces
 // --------------------
@@ -63,15 +63,12 @@ export default function Dashboard() {
   const getAllStores = async () => {
     try {
       const res = await axios.get("/api/stores");
-      console.log(res.data.data)
       setStoreList(res.data.data)
     } catch (error) {
       console.log(error)
     }
 
   }
-
-  console.log(storeList);
 
 
 
@@ -85,11 +82,9 @@ export default function Dashboard() {
 
   const handleDeleteStore = async(id: number) => {
   // DELETE API call here
-  console.log("Deleting store with ID:", id);
-
   await axios.delete(`/api/stores/${id}`)
     .then(res => {
-      console.log("Deleted!");
+      console.log(res);
       // refresh page OR remove from UI
       setStoreList(storeList.filter(store => store.id !== id));
     })
@@ -101,11 +96,10 @@ export default function Dashboard() {
 
  const handleDeleteUser = async (id: number) => {
   // DELETE API call here
-  console.log("Deleting store with ID:", id);
 
   await axios.delete(`/api/users/${id}`)
     .then(res => {
-      console.log("Deleted!");
+      console.log(res);
       // refresh page OR remove from UI
       alert(`User of id:${id} is deleted !!`)
       setUserList(userList.filter(user => user.id !== id));

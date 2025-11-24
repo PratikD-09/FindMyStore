@@ -85,15 +85,15 @@ const [password, setPassword] = useState("");
     getReviews();
   }, [userOfId]);
 
-  const removeEmptyFields = (obj: any) => {
-  const filtered: any = {};
-  for (let key in obj) {
-    if (obj[key] !== "" && obj[key] !== null && obj[key] !== undefined) {
-      filtered[key] = obj[key];
-    }
-  }
-  return filtered;
-};
+//   const removeEmptyFields = (obj: any) => {
+//   const filtered: any = {};
+//   for (let key in obj) {
+//     if (obj[key] !== "" && obj[key] !== null && obj[key] !== undefined) {
+//       filtered[key] = obj[key];
+//     }
+//   }
+//   return filtered;
+// };
 
 
   // UPDATE PROFILE

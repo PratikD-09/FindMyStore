@@ -34,7 +34,6 @@ export interface RatingType {
 
 export default function StoreDescription() {
   const user = useSelector((state: RootState) => state.auth.user);
-  console.log(user?.username)
 
   const [store, setStore] = useState<StoreType | null>(null)
   const [flag, setFlag] = useState(false);
@@ -58,9 +57,7 @@ export default function StoreDescription() {
 
   const getReviews = async () => {
     try {
-      console.log(id)
       const res = await axios.get(`/api/ratings/store/${id}`);
-      console.log(res.data.data)
       setRatings(res.data.data);
     } catch (error) {
       console.log(error)
@@ -78,7 +75,6 @@ export default function StoreDescription() {
   const [rating, setRating] = useState<number>(0);
   const [reviewText, setReviewText] = useState("");
 
-  console.log(typeof(user?.username));
 
   const postRatings = async () => {
     const ratingData = {
@@ -87,15 +83,13 @@ export default function StoreDescription() {
       rating: rating,
       description: reviewText
     }
-    console.log(ratingData);
 
     try {
-      const res = axios.post("/api/ratings", ratingData);
+      axios.post("/api/ratings", ratingData);
       setRating(0);
       setReviewText("")
       setFlag(!flag);
 
-      console.log(res);
     } catch (error) {
       console.log(error)
     }

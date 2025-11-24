@@ -6,13 +6,7 @@ import { useState, type ChangeEvent, type Dispatch, type FormEvent, type SetStat
 interface AddStoreFormProps {
   setpopup: Dispatch<SetStateAction<boolean>>; // React state setter
 }
-interface StoreType {
-  id: number;
-  category:string,
-  name: string;
-  email: string;
-  address: string;
-}
+
 
 interface StoreFormData {
   owner_id: number | null;
@@ -52,14 +46,13 @@ export default function AddStoreForm({ setpopup }: AddStoreFormProps) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/stores", store);
+      await axios.post("/api/stores", store);
       alert("Store is created!!");
       setpopup(false);
     } catch (error : any) {
       console.log(error);
       alert(error.response.data.message)
     }
-    // console.log(res.data.data);
   };
 
   return (

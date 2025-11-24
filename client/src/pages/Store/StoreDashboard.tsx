@@ -3,7 +3,6 @@ import Navbar from "../../components/Navbar";
 import RatingList from "./RatingList";
 import { Star, Store } from "lucide-react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
 
 export interface RatingType {
   id: number;
@@ -35,11 +34,7 @@ export default function StoreDashboard() {
 
 
   const [store, setStore] = useState<StoreType | null>(null)
-  const [flag, setFlag] = useState(false);
 
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
-  // console.log(id)
 
   const getStoreInfo = async () => {
     try {
@@ -53,12 +48,10 @@ export default function StoreDashboard() {
       } else {
         const user = JSON.parse(storedUser);
         owner_id = user.id; // this works
-        console.log(owner_id);
       }
 
 
       const res = await axios.get(`/api/owner/${owner_id}`)
-      console.log(res.data.data)
       setStore(res.data.data);
     } catch (error) {
       console.log(error);
@@ -72,16 +65,14 @@ export default function StoreDashboard() {
   const getReviews = async () => {
 
     if (!store?.id) {
-      console.log("Store ID not available yet");
+      
       return;
     }
 
     const storeid = store.id;
 
     try {
-      console.log(storeid)
       const res = await axios.get(`/api/ratings/store/${storeid}`);
-      console.log(res.data.data)
       setRatings(res.data.data);
     } catch (error) {
       console.log(error)
@@ -122,7 +113,6 @@ export default function StoreDashboard() {
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
-          <Store className="h-10 w-10 text-indigo-600" />
           <h1 className="text-4xl font-extrabold text-gray-900 drop-shadow-sm">
             Store Owner Dashboard
           </h1>

@@ -96,7 +96,6 @@ export const getRatingsByStoreId = async (req, res, next) => {
 // GET RATINGS BY A USER
 export const getRatingsByUserId = async (req, res, next) => {
   const { user_id } = req.params; // 🔥 must match route param name
-  console.log("CONTROLLER RECEIVED:", user_id);
 
   try {
     const ratings = await getRatingsByUserIdService(user_id);

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/authReducer";
-import { LogOut, ShoppingBag, Store, User } from "lucide-react";
+import { LogOut, Store, User } from "lucide-react";
 import type { RootState } from "../redux/store";
 import { RiDashboardHorizontalFill } from "react-icons/ri";
 
