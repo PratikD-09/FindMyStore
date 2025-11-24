@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import RatingList from "./RatingList";
-import { Star, Store } from "lucide-react";
+import { Star } from "lucide-react";
 import axios from "axios";
 
 export interface RatingType {
