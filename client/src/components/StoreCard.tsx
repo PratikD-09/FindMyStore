@@ -1,4 +1,6 @@
 import { Star, MapPin } from "lucide-react";
+import { useEffect, useState } from "react";
+import API from "../API/axios.js";
 
 
 type StoreType = {
@@ -12,8 +14,42 @@ type StoreCardProps = {
   store: StoreType;
 };
 
+export interface RatingType {
+  id: number;
+  user_id: string;
+  store_id: number;
+  rating: number;
+  description: string | null;
+  created_at: string;
+
+  user_name?: string;
+  store_name?: string;
+}
+
+
 export default function StoreCard({store} : StoreCardProps) {
-     
+
+
+  const [ratings, setRatings] = useState<RatingType[] | []>([]);
+
+
+   const getReviews = async () => {
+    try {
+      const res = await API.get(`/api/ratings/store/${store.id}`);
+      setRatings(res.data.data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+       useEffect(() => {
+         getReviews();
+       }, [])
+
+  const totalRatings = ratings.length;
+
+  const sumRatings = ratings.reduce((sum, r) => sum + r.rating, 0);
+
+  const avgRating = totalRatings > 0 ? sumRatings / totalRatings : 0;
  
 
   return (
@@ -40,7 +76,7 @@ export default function StoreCard({store} : StoreCardProps) {
         <div className="flex items-center mt-3">
           <Star className="h-4 w-4 text-yellow-500 mr-1" />
           <span className="font-semibold text-gray-800">
-            4.5 / 5
+             {`${avgRating} / 5 `}
           </span>
         </div>
 

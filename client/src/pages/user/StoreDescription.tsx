@@ -108,6 +108,14 @@ export default function StoreDescription() {
     alert(`Review Submitted!\nRating: ${rating}\nMessage: ${reviewText}`);
   };
 
+
+  
+   const totalRatings = ratings.length;
+
+  const sumRatings = ratings.reduce((sum, r) => sum + r.rating, 0);
+
+  const avgRating = totalRatings > 0 ? sumRatings / totalRatings : 0;
+
   return (
     <>
       <Navbar />
@@ -137,7 +145,7 @@ export default function StoreDescription() {
           <div className="flex items-center mt-3">
             <Star className="h-5 w-5 text-yellow-500 mr-1" />
             <span className="text-lg font-semibold text-gray-800">
-              4.5 / 5 (120 reviews)
+              {`${avgRating} / 5 ( ${totalRatings})`}
             </span>
           </div>
 
