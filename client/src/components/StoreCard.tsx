@@ -80,10 +80,7 @@ export default function StoreCard({store} : StoreCardProps) {
           </span>
         </div>
 
-        {/* User Rating (Static) */}
-        <p className="text-sm mt-2 text-gray-600">
-          Your Rating: <span className="font-bold">Not rated yet</span>
-        </p>
+        
 
         {/* Button */}
         <button
