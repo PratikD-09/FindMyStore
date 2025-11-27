@@ -49,7 +49,10 @@ export default function StoreCard({store} : StoreCardProps) {
 
   const sumRatings = ratings.reduce((sum, r) => sum + r.rating, 0);
 
-  const avgRating = totalRatings > 0 ? sumRatings / totalRatings : 0;
+  const avgRating = totalRatings > 0 
+  ? Number((sumRatings / totalRatings).toFixed(1)) 
+  : 0;
+
  
 
   return (
