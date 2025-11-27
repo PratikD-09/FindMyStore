@@ -9,6 +9,7 @@ const Signup = () => {
     email: "",
     address: "",
     password: "",
+    role:"user"
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +42,8 @@ const Signup = () => {
       username: form.username,
       email: form.email,
       password: form.password,
-      address:form.address
+      address:form.address,
+      role:"user"
     };
 
     try {

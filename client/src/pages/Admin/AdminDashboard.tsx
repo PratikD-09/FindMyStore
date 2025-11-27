@@ -198,14 +198,14 @@ export default function Dashboard() {
         />
 
         {/* TABLE */}
-        <div className="bg-white rounded-xl shadow-lg p-6">
+        <div className="bg-white rounded-xl shadow-lg p-6 overflow-x-auto w-full">
           {activeTab === "users" ? (
             <>
               <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <User size={22} /> User List
               </h3>
 
-              <table className="w-full border-collapse table-fixed">
+              <table className="min-w-[900px] w-full border-collapse ">
                 <thead>
                   <tr className="bg-gray-100 text-left">
                     <th className="p-3">Id</th>
@@ -246,7 +246,7 @@ export default function Dashboard() {
                 <Store size={22} /> Store List
               </h3>
 
-              <table className="w-full border-collapse table-fixed">
+              <table className="min-w-[900px] w-full border-collapse">
                 <thead>
                   <tr className="bg-gray-100 text-left">
                     <th className="p-3">Id</th>

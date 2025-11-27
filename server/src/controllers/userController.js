@@ -22,6 +22,9 @@ export const createUser = async (req, res, next) => {
     if (!username || !email || !password) {
         return next({ status: 400, message: "All fields are required" });
     }
+    // if(!role){
+    //     role="user";
+    // }
 
     try {
         const newUser = await createUserService(username, email, password , address , role);
